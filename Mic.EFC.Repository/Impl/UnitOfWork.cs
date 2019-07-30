@@ -1,10 +1,5 @@
-﻿using Mic.EFC.Repository.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text;
 
 namespace Mic.EFC.Repository.Impl
 {
