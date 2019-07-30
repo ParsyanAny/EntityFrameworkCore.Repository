@@ -8,10 +8,10 @@ namespace Mic.EFC.Repository.TestConsoleApp
         static void Main(string[] args)
         {
             ApplicationContext context = new ApplicationContext();
-
+            
             IStudentRepository studentRepository = new StudentRepository(context);
             studentRepository.GetAll(p => p.Name == "A1");
-
+            
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             unitOfWork.Commit();
 
