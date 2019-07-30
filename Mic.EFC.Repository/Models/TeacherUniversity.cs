@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Mic.EFC.Repository.Models
 {
-    class TeacherUniversity
+    public partial class TeacherUniversity
     {
+        public int Id { get; set; }
+        public int TeacherId { get; set; }
+        public int UniversityId { get; set; }
+
+        public virtual Teachers Teacher { get; set; }
+        public virtual Universities University { get; set; }
     }
 }
