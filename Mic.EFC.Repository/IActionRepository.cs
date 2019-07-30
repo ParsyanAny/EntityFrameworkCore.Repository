@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Mic.EFC.Repository
 {
-    interface IActionRepository<TEntity>
+    public interface IActionRepository<TEntity>
         where TEntity : class, new()
     {
         void Create(TEntity entity);
