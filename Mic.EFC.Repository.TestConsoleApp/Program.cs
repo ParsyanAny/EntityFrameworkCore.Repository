@@ -11,9 +11,7 @@ namespace Mic.EFC.Repository.TestConsoleApp
 
             IStudentRepository studentRepository = new StudentRepository(context);
             var sts = studentRepository.GetAll(p => p.Name == "A");
-            Console.WriteLine(DateTime.Now.ToString());
             context.Students.FindAsync(1);
-            Console.WriteLine(DateTime.Now.ToString());
 
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             unitOfWork.Commit();

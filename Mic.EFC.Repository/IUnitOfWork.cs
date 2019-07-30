@@ -7,7 +7,6 @@ namespace Mic.EFC.Repository
         ITeacherRepository Teachers { get; }
         IUniversityRepository Universities { get; }
         IGenderRepository Genders { get; }
-
         void Commit();
         void RejectChanges();
         void Dispose();
