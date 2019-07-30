@@ -1,7 +1,9 @@
 ﻿using Mic.EFC.Repository.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Mic.EFC.Repository.Impl
@@ -15,15 +17,14 @@ namespace Mic.EFC.Repository.Impl
             _dbContext = dbContext;
             Genders = new GenderRepository(_dbContext);
             Students = new StudentRepository(_dbContext);
-            Teacher = new TeacherRepository(_dbContext);
-            University = new UniversityRepository(_dbContext);
+            Teachers = new TeacherRepository(_dbContext);
+            Universities = new UniversityRepository(_dbContext);
         }
 
         public IGenderRepository Genders { get; private set; }
         public IStudentRepository Students { get; private set; }
-        public ITeacherRepository Teacher { get; private set; }
-        public IUniversityRepository University { get; private set; }
-
+        public ITeacherRepository Teachers { get; private set; }
+        public IUniversityRepository Universities { get; private set; }
 
         public void Commit()
         {
@@ -38,7 +39,20 @@ namespace Mic.EFC.Repository.Impl
 
         public void RejectChanges()
         {
-            throw new System.NotImplementedException();
+            foreach (var entry in _dbContext.ChangeTracker.Entries()
+                  .Where(e => e.State != EntityState.Unchanged))
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.State = EntityState.Detached;
+                        break;
+                    case EntityState.Modified:
+                    case EntityState.Deleted:
+                        entry.Reload();
+                        break;
+                }
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mic.EFC.Repository.Impl
 {
-    public class UniversityRepository : BaseRepository<Universities>
+    public class UniversityRepository : BaseRepository<Universities>, IUniversityRepository
     {
         public UniversityRepository(DbContext context) : base(context) { }
     }

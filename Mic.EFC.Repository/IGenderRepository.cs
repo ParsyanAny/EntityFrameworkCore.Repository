@@ -2,7 +2,7 @@
 
 namespace Mic.EFC.Repository
 {
-    interface IGenderRepository : IReadOnlyRepository<Genders>
+    public interface IGenderRepository : IReadOnlyRepository<Genders>
     {
     }
 }

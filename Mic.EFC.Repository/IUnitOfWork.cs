@@ -1,20 +1,14 @@
 ﻿
 namespace Mic.EFC.Repository
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork
     {
-        IStudentRepository Student { get; }
-        ITeacherRepository Teacher { get; }
-        IUniversityRepository University { get; }
-        IGenderRepository Gender { get; }
+        IStudentRepository Students { get; }
+        ITeacherRepository Teachers { get; }
+        IUniversityRepository Universities { get; }
+        IGenderRepository Genders { get; }
 
-        /// <summary>
-        /// Commits all changes
-        /// </summary>
         void Commit();
-        /// <summary>
-        /// Discards all changes that has not been commited
-        /// </summary>
         void RejectChanges();
         void Dispose();
     }

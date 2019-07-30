@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mic.EFC.Repository.Models;
 
 namespace Mic.EFC.Repository
 {
-    interface IStudentRepository
+    public interface IStudentRepository : IBaseRepository<Students>
     {
     }
 }
