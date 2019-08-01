@@ -2,7 +2,5 @@
 
 namespace Mic.EFC.Repository
 {
-    public interface ITeacherRepository : IBaseRepository<Teachers>
-    {
-    }
+    public interface ITeacherRepository : IBaseRepository<Teachers> { }
 }

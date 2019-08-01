@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Mic.EFC.Repository.Models
 {
@@ -14,7 +12,6 @@ namespace Mic.EFC.Repository.Models
 
         public byte Id { get; set; }
         public string Gender { get; set; }
-
         public virtual ICollection<Students> Students { get; set; }
         public virtual ICollection<Teachers> Teachers { get; set; }
     }

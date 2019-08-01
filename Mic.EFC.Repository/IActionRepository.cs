@@ -15,6 +15,5 @@ namespace Mic.EFC.Repository
         void Delete(TEntity entity);
         void DeleteById(int id);
         void DeleteRange(IEnumerable<TEntity> entities);
-
     }
 }

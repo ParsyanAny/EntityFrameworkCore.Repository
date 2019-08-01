@@ -15,7 +15,6 @@ namespace Mic.EFC.Repository.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte GenderId { get; set; }
-
         public virtual Genders Gender { get; set; }
         public virtual ICollection<TeacherUniversity> TeacherUniversity { get; set; }
     }

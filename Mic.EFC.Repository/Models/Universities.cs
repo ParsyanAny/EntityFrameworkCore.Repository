@@ -15,7 +15,6 @@ namespace Mic.EFC.Repository.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime? DestroyDate { get; set; }
-
         public virtual ICollection<Students> Students { get; set; }
         public virtual ICollection<TeacherUniversity> TeacherUniversity { get; set; }
     }

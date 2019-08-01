@@ -1,37 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Mic.EFC.Repository.Impl
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private readonly DbContext _dbContext;
+        private bool disposed;
+        private readonly Dictionary<string, object> repositories;
 
-        public UnitOfWork(DbContext dbContext)
+        public UnitOfWork(DbContext _dbContext)
         {
-            _dbContext = dbContext;
-            Genders = new GenderRepository(_dbContext);
-            Students = new StudentRepository(_dbContext);
-            Teachers = new TeacherRepository(_dbContext);
-            Universities = new UniversityRepository(_dbContext);
+            this._dbContext = _dbContext;
+            repositories = new Dictionary<string, object>();
         }
 
-        public IGenderRepository Genders { get; private set; }
-        public IStudentRepository Students { get; private set; }
-        public ITeacherRepository Teachers { get; private set; }
-        public IUniversityRepository Universities { get; private set; }
+        public IGenderReadOnlyRepository Genders => Repository<GenderRepository>();
+        public IStudentRepository Students => Repository<StudentRepository>();
+        public ITeacherRepository Teachers => Repository<TeacherRepository>();
+        public IUniversityRepository Universities => Repository<UniversityRepository>();
+
+        private TRepository Repository<TRepository>()
+        //where TRepository : IBaseRepository<>
+        //where T : class, new()
+        {
+            var type = typeof(TRepository);
+            if (!repositories.ContainsKey(type.Name))
+            {
+                var obj = Activator.CreateInstance(type, _dbContext);
+                repositories.Add(type.Name, obj);
+            }
+            return (TRepository)repositories[type.Name];
+        }
 
         public void Commit()
         {
             _dbContext.SaveChanges();
         }
-
-        public void Dispose()
-        {
-            if (_dbContext != null)
-                _dbContext.Dispose();
-        }
-
         public void RejectChanges()
         {
             foreach (var entry in _dbContext.ChangeTracker.Entries()
@@ -48,6 +55,22 @@ namespace Mic.EFC.Repository.Impl
                         break;
                 }
             }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        public virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    _dbContext.Dispose();
+                }
+            }
+            disposed = true;
         }
     }
 }
